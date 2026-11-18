@@ -2,13 +2,14 @@
   "domain": "my_bus",
   "name": "My Bus",
   "codeowners": [
-    "@zhang"
+    "@zhangxiaodong0592"
   ],
   "config_flow": true,
-  "documentation": "https://github.com/local/my-bus",
+  "documentation": "https://github.com/zhangxiaodong0592/my-bus",
   "integration_type": "device",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/local/my-bus/issues",
+  "issue_tracker": "https://github.com/zhangxiaodong0592/my-bus/issues",
+  "repository": "https://github.com/zhangxiaodong0592/my-bus",
   "requirements": [
     "pypinyin>=0.51.0"
   ],
