@@ -1,0 +1,262 @@
+# My Bus 条件描述（HA 新版条件体系，2026.10+）。
+#
+# 说明（与 triggers.yaml 同一套机制，0.9.14 / 0.9.21 两轮踩坑总结）：
+#   * 「新建自动化 → 添加条件 → 按目标」对话框的数据源是核心**新条件注册表**
+#     （WS 命令 get_conditions_for_target），它只读本文件 + condition.py +
+#     translations 的 conditions 段；
+#   * 旧版 device_condition.py（0.9.20 写的）只服务旧的「按设备」页签，
+#     新界面完全不读 —— 这就是 0.9.20 装上后条件仍然看不见的原因。
+#
+# v0.9.24 起条件与触发器对称，共八条，按 device_class 一对一挂载：
+#   is_arrived / is_not_arriving / is_arriving / is_no_bus → device_class: enum
+#                                                             （只有「到站状态」）
+#   remaining_stops                                        → stop_count
+#   remaining_km                                           → remaining_distance
+#   eta                                                    → eta
+#   data_sync                                              → timestamp
+# 因此每个实体页只显示属于自己的条件，不会串到其余传感器上。
+#
+# fields 必须声明 behavior（满足条件的行为，any/all）与 for（持续时长，
+# 对应界面上的「持续」），否则前端保存时会被 PREVENT_EXTRA 校验拒绝
+# （与 0.9.11 触发器漏声明 to 字段被 400 拒绝是同一个坑）。
+#
+# 数值条件额外声明 threshold（核心 NUMERICAL_CONDITION_SCHEMA 要求
+# options.threshold 必填，键名固定为 threshold / type / value / value_min /
+# value_max，与核心 battery 的 is_level 完全一致）。选择器 mode 用 is
+# （条件语义：此刻是否满足），触发器那边用 changed（变化即触发）。
+#
+# 数据同步的单位是「小时」：比较的是实体属性 sync_age_hours
+# （距上次同步的小时数），由 sensor.py 每轮刷新重算，见 condition.py 注释。
+#
+# 小数位数由 number.step 控制（核心 number 选择器 step 默认 1，前端按步进校验，
+# 1.3 会被判为非步进值而无法提交）：remaining_km 写 step: 0.1，与传感器 1 位小数
+# 对齐；站 / 分钟是整数口径不写 step；数据同步小时用 step: any。
+
+is_arrived:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+
+is_not_arriving:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+
+is_arriving:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+
+is_no_bus:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+
+remaining_stops:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: stop_count
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+    threshold:
+      required: true
+      selector:
+        numeric_threshold:
+          mode: is
+          number:
+            min: 0
+            mode: box
+            unit_of_measurement: 站
+
+remaining_km:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: remaining_distance
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+    threshold:
+      required: true
+      selector:
+        numeric_threshold:
+          mode: is
+          number:
+            min: 0
+            step: 0.1          # 与传感器口径一致（distance_km 保留 1 位小数）
+            mode: box
+            unit_of_measurement: 公里
+
+eta:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: eta
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+    threshold:
+      required: true
+      selector:
+        numeric_threshold:
+          mode: is
+          number:
+            min: 0
+            mode: box
+            unit_of_measurement: 分钟
+
+data_sync:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: timestamp
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+    threshold:
+      required: true
+      selector:
+        numeric_threshold:
+          mode: is
+          number:
+            min: 0
+            max: 720
+            step: any
+            mode: box
+            unit_of_measurement: 小时
+
+# 车牌条件（自定义 device_class: license_plate）。
+# plate 是用户手填的车牌号（文本框），因为车牌是动态的，没法做成下拉选项。
+# 可加通配符：* 任意多个字、? 一个字；不写就是精确匹配（与触发器一致）。
+# 键名 plate_becomes 与触发器同名（v0.9.28 首版叫 plate_is「车牌是」，
+# v0.9.32 按用户要求改名与触发器一致，并删除反义的「车牌不是」）。
+# 与触发器一样按 device_class 一对一只挂到「车牌」实体上。
+plate_becomes:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: license_plate
+    primary_entities_only: false
+  fields:
+    behavior:
+      required: true
+      default: any
+      selector:
+        automation_behavior:
+          mode: condition
+    for:
+      required: true
+      default: 00:00:00
+      selector:
+        duration:
+    plate:
+      required: true
+      selector:
+        text:

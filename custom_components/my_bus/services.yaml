@@ -1,0 +1,29 @@
+get_arrivals:
+  name: 查询公交到站
+  description: 查询某站台各线路的实时到站信息（最近车辆剩余站数），适合 AI 助手调用后生成自然语言回复。支持全国掌上公交覆盖的城市。
+  fields:
+    station:
+      name: 站台
+      description: 站台名称，支持简称（如"县口路"、"县口"），将自动匹配完整站名。
+      example: 县口路
+    line:
+      name: 线路
+      description: 可选。只查询该线路，如 "615"。
+      example: "615"
+    direction:
+      name: 方向
+      description: 可选。1=上行，2=下行。不填则返回两个方向。
+      example: "1"
+    city:
+      name: 城市
+      description: 可选。掌上公交的城市名（如"厦门市"、"北京市"）。不填则使用已配置监控的城市。
+      example: 厦门市
+
+sync_data:
+  name: 同步公交数据
+  description: 立即与掌上公交同步一次城市 / 线路 / 站台等结构数据，并自动纠正已配置监控中与线上不一致的站序。适合放在自动化里定期执行。
+  fields:
+    city:
+      name: 城市
+      description: 可选。只同步该城市下已配置的监控；不填则同步全部监控（城市列表始终整体刷新）。
+      example: 厦门市

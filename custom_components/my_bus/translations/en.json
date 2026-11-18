@@ -1,0 +1,453 @@
+{
+  "config": {
+    "step": {
+      "city": {
+        "title": "📍 选择城市",
+        "description": "{hint}"
+      },
+      "city_browse": {
+        "title": "🏙 浏览全部城市",
+        "description": "{hint}"
+      },
+      "city_keyword": {
+        "title": "🔍 输入城市名查找",
+        "description": "{hint}",
+        "submit": "查找城市",
+        "data": {
+          "城市名关键词（中文、拼音或首字母）": "城市名关键词（中文、拼音或首字母）"
+        },
+        "data_description": {
+          "城市名关键词（中文、拼音或首字母）": "例如：厦门、xiamen、xm；留空提交则取消查找。"
+        }
+      },
+      "mode": {
+        "title": "🧭 选择检索方式",
+        "description": "{hint}"
+      },
+      "station": {
+        "title": "🚏 选择站台",
+        "description": "{hint}"
+      },
+      "station_keyword": {
+        "title": "🔍 输入站台名查找",
+        "description": "{hint}",
+        "submit": "查找站台",
+        "data": {
+          "站台名关键词（中文、拼音或首字母）": "站台名关键词（中文、拼音或首字母）"
+        },
+        "data_description": {
+          "站台名关键词（中文、拼音或首字母）": "例如：火车、火车站、hcz；留空提交则返回上一步。"
+        }
+      },
+      "line": {
+        "title": "🚌 选择线路",
+        "description": "{hint}"
+      },
+      "line_keyword": {
+        "title": "🔍 输入线路号查找",
+        "description": "{hint}",
+        "submit": "查找线路",
+        "data": {
+          "线路关键词（线路号或名称）": "线路关键词（线路号或名称）"
+        },
+        "data_description": {
+          "线路关键词（线路号或名称）": "例如：1、1路；留空提交则返回上一步。"
+        }
+      },
+      "line_station": {
+        "title": "🚏 选择站台",
+        "description": "{hint}"
+      },
+      "settings": {
+        "title": "⏱ 选择到站参数",
+        "description": "{hint}"
+      },
+      "settings_params": {
+        "title": "⏱ 修改到站参数",
+        "description": "{hint}",
+        "submit": "保存参数"
+      },
+      "sync": {
+        "title": "🔄 数据同步",
+        "description": "{hint}"
+      },
+      "confirm": {
+        "title": "✅ 确认创建",
+        "description": "{hint}"
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接公交数据服务，请稍后重试。"
+    },
+    "abort": {
+      "already_configured": "这个城市 + 线路 + 方向 + 站台的监控已经添加过了，不用重复添加。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "My Bus 设置",
+        "description": "{hint}"
+      },
+      "edit_city": {
+        "title": "📍 修改城市",
+        "description": "{hint}"
+      },
+      "edit_line": {
+        "title": "🔁 修改线路 / 站台",
+        "description": "{hint}"
+      },
+      "edit_settings": {
+        "title": "⏱ 修改到站参数",
+        "description": "{hint}"
+      },
+      "city": {
+        "title": "📍 选择城市",
+        "description": "{hint}"
+      },
+      "city_browse": {
+        "title": "🏙 浏览全部城市",
+        "description": "{hint}"
+      },
+      "city_keyword": {
+        "title": "🔍 输入城市名查找",
+        "description": "{hint}",
+        "submit": "查找城市",
+        "data": {
+          "城市名关键词（中文、拼音或首字母）": "城市名关键词（中文、拼音或首字母）"
+        },
+        "data_description": {
+          "城市名关键词（中文、拼音或首字母）": "例如：厦门、xiamen、xm；留空提交则取消查找。"
+        }
+      },
+      "mode": {
+        "title": "🧭 选择检索方式",
+        "description": "{hint}"
+      },
+      "station": {
+        "title": "🚏 选择站台",
+        "description": "{hint}"
+      },
+      "station_keyword": {
+        "title": "🔍 输入站台名查找",
+        "description": "{hint}",
+        "submit": "查找站台",
+        "data": {
+          "站台名关键词（中文、拼音或首字母）": "站台名关键词（中文、拼音或首字母）"
+        },
+        "data_description": {
+          "站台名关键词（中文、拼音或首字母）": "例如：火车、火车站、hcz；留空提交则返回上一步。"
+        }
+      },
+      "line": {
+        "title": "🚌 选择线路",
+        "description": "{hint}"
+      },
+      "line_keyword": {
+        "title": "🔍 输入线路号查找",
+        "description": "{hint}",
+        "submit": "查找线路",
+        "data": {
+          "线路关键词（线路号或名称）": "线路关键词（线路号或名称）"
+        },
+        "data_description": {
+          "线路关键词（线路号或名称）": "例如：1、1路；留空提交则返回上一步。"
+        }
+      },
+      "line_station": {
+        "title": "🚏 选择站台",
+        "description": "{hint}"
+      },
+      "settings": {
+        "title": "⏱ 选择到站参数",
+        "description": "{hint}"
+      },
+      "settings_params": {
+        "title": "⏱ 修改到站参数",
+        "description": "{hint}",
+        "submit": "保存参数"
+      },
+      "confirm": {
+        "title": "✅ 确认创建",
+        "description": "{hint}"
+      },
+      "sync": {
+        "title": "🔄 数据同步",
+        "description": "{hint}"
+      },
+      "sync_interval": {
+        "title": "⏱ 修改自动同步间隔",
+        "description": "{hint}",
+        "submit": "保存间隔"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "data_sync": {
+        "name": "数据同步"
+      },
+      "remaining_stops": {
+        "name": "剩余站数"
+      },
+      "remaining_km": {
+        "name": "剩余公里数"
+      },
+      "eta": {
+        "name": "预计到达"
+      },
+      "arrival_status": {
+        "name": "到站状态"
+      },
+      "plate": {
+        "name": "车牌"
+      }
+    }
+  },
+  "conditions": {
+    "is_arrived": {
+      "name": "已到站",
+      "description": "此刻车辆正停在监控站台上。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        }
+      }
+    },
+    "is_not_arriving": {
+      "name": "未到站",
+      "description": "此刻车辆还没到监控站台（官方文案为「N站」）。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        }
+      }
+    },
+    "is_arriving": {
+      "name": "即将到站",
+      "description": "此刻车辆已驶向监控站台但还没停稳。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        }
+      }
+    },
+    "is_no_bus": {
+      "name": "暂无车辆",
+      "description": "此刻该方向没有在途车辆，或官方数据暂无法解析。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        }
+      }
+    },
+    "remaining_stops": {
+      "name": "剩余站数",
+      "description": "最近一辆车还剩几站。可设高于、低于、区间或等于，单位：站。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        },
+        "threshold": {
+          "name": "阈值",
+          "description": "可设高于、低于、区间或等于。"
+        }
+      }
+    },
+    "remaining_km": {
+      "name": "剩余公里数",
+      "description": "最近一辆车还剩几公里。可设高于、低于、区间或等于，单位：公里。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        },
+        "threshold": {
+          "name": "阈值",
+          "description": "可设高于、低于、区间或等于。"
+        }
+      }
+    },
+    "eta": {
+      "name": "预计到达",
+      "description": "预计还有几分钟到站。可设高于、低于、区间或等于，单位：分钟。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        },
+        "threshold": {
+          "name": "阈值",
+          "description": "可设高于、低于、区间或等于。"
+        }
+      }
+    },
+    "data_sync": {
+      "name": "数据同步",
+      "description": "距上次数据同步已过去的小时数。可设高于、低于、区间或等于，单位：小时。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        },
+        "threshold": {
+          "name": "阈值",
+          "description": "可设高于、低于、区间或等于。"
+        }
+      }
+    },
+    "plate_becomes": {
+      "name": "车牌变为",
+      "description": "此刻最近一辆车的车牌符合填写的号码；可加通配符 *（任意多个字）或 ?（一个字）。",
+      "fields": {
+        "behavior": {
+          "name": "条件满足如果"
+        },
+        "for": {
+          "name": "持续至少"
+        },
+        "plate": {
+          "name": "车牌",
+          "description": "填写车牌号；可加通配符 *（任意多个字）或 ?（一个字）。"
+        }
+      }
+    }
+  },
+  "triggers": {
+    "arrival_arrived": {
+      "name": "已到站",
+      "description": "到站状态变为「已到站」时触发。",
+      "fields": {}
+    },
+    "arrival_arriving": {
+      "name": "即将到站",
+      "description": "到站状态变为「即将到站」时触发。",
+      "fields": {}
+    },
+    "arrival_not_arriving": {
+      "name": "未到站",
+      "description": "到站状态变为「未到站」时触发。",
+      "fields": {}
+    },
+    "arrival_no_bus": {
+      "name": "暂无车辆",
+      "description": "到站状态变为「暂无车辆」时触发。",
+      "fields": {}
+    },
+    "remaining_stops": {
+      "name": "剩余站数变化",
+      "description": "最近一辆车的剩余站数变化时触发，可选设置高于、低于或区间阈值，单位：站。",
+      "fields": {
+        "threshold": {
+          "name": "阈值",
+          "description": "默认任意变化，也可改为高于、低于或区间。"
+        }
+      }
+    },
+    "remaining_km": {
+      "name": "剩余公里数变化",
+      "description": "最近一辆车的剩余公里数变化时触发，可选设置高于、低于或区间阈值，单位：公里。",
+      "fields": {
+        "threshold": {
+          "name": "阈值",
+          "description": "默认任意变化，也可改为高于、低于或区间。"
+        }
+      }
+    },
+    "eta": {
+      "name": "预计到达变化",
+      "description": "预计到达的分钟数变化时触发，可选设置高于、低于或区间阈值，单位：分钟。",
+      "fields": {
+        "threshold": {
+          "name": "阈值",
+          "description": "默认任意变化，也可改为高于、低于或区间。"
+        }
+      }
+    },
+    "data_sync": {
+      "name": "数据同步完成",
+      "description": "数据同步完成一次时触发。",
+      "fields": {}
+    },
+    "plate_becomes": {
+      "name": "车牌变为",
+      "description": "最近一辆车的车牌变成填写的号码时触发，首班车恰好是这辆车也算。可加通配符：* 任意多个字，? 一个字。",
+      "fields": {
+        "plate": {
+          "name": "车牌",
+          "description": "填写要等待出现的车牌号；可加通配符 *（任意多个字）或 ?（一个字）。"
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "condition_type": {
+      "is_arrived": "{entity_name} 已到站",
+      "is_not_arriving": "{entity_name} 未到站",
+      "is_arriving": "{entity_name} 即将到站",
+      "is_no_bus": "{entity_name} 暂无车辆"
+    },
+    "trigger_type": {
+      "arrival_arrived": "已到站",
+      "arrival_arriving": "即将到站",
+      "remaining_stops": "剩余站数变化",
+      "remaining_km": "剩余公里数变化",
+      "eta": "预计到达变化",
+      "remaining_stops_changed": "剩余站数变化",
+      "remaining_km_changed": "剩余公里数变化",
+      "eta_changed": "预计到达变化",
+      "arrival_status_changed": "到站状态变化"
+    }
+  },
+  "services": {
+    "get_arrivals": {
+      "name": "查询到站信息",
+      "description": "查询某个站台停靠线路的实时到站情况，返回结构化数据与一句中文摘要，供语音助手或自动化使用。",
+      "fields": {
+        "station": {
+          "name": "站台",
+          "description": "站台名称，支持模糊匹配，例如「县口路站」。"
+        },
+        "line": {
+          "name": "线路",
+          "description": "线路号或名称，例如「615」或「615路」。"
+        },
+        "city": {
+          "name": "城市",
+          "description": "城市名称；不填则使用该站台所属监控的城市。"
+        }
+      }
+    },
+    "sync_data": {
+      "name": "同步掌上公交数据",
+      "description": "立刻与掌上公交同步城市 / 线路 / 站台等结构数据，并校对已配置监控的站序。",
+      "fields": {
+        "city": {
+          "name": "城市",
+          "description": "只同步该城市的监控；不填则同步全部。"
+        }
+      }
+    }
+  }
+}

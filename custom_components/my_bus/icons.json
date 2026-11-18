@@ -1,0 +1,60 @@
+{
+  "conditions": {
+    "is_arrived": {
+      "condition": "mdi:bus-stop-covered"
+    },
+    "is_not_arriving": {
+      "condition": "mdi:bus-stop-uncovered"
+    },
+    "is_arriving": {
+      "condition": "mdi:bus-clock"
+    },
+    "is_no_bus": {
+      "condition": "mdi:bus-alert"
+    },
+    "remaining_stops": {
+      "condition": "mdi:map-marker-distance"
+    },
+    "remaining_km": {
+      "condition": "mdi:map-marker-path"
+    },
+    "eta": {
+      "condition": "mdi:timer-outline"
+    },
+    "data_sync": {
+      "condition": "mdi:cloud-sync-outline"
+    },
+    "plate_becomes": {
+      "condition": "mdi:license"
+    }
+  },
+  "triggers": {
+    "arrival_arrived": {
+      "trigger": "mdi:bus-stop-covered"
+    },
+    "arrival_arriving": {
+      "trigger": "mdi:bus-clock"
+    },
+    "arrival_not_arriving": {
+      "trigger": "mdi:bus-stop-uncovered"
+    },
+    "arrival_no_bus": {
+      "trigger": "mdi:bus-alert"
+    },
+    "remaining_stops": {
+      "trigger": "mdi:map-marker-distance"
+    },
+    "remaining_km": {
+      "trigger": "mdi:map-marker-path"
+    },
+    "eta": {
+      "trigger": "mdi:timer-outline"
+    },
+    "data_sync": {
+      "trigger": "mdi:cloud-sync-outline"
+    },
+    "plate_becomes": {
+      "trigger": "mdi:target-variant"
+    }
+  }
+}

@@ -1,0 +1,121 @@
+# My Bus 触发器描述（HA 新版触发器体系）。
+# target 限定「本集成的传感器实体」，并按实体功能用 device_class 一对一挂载：
+#   arrival_arrived / arrival_arriving /
+#   arrival_not_arriving / arrival_no_bus → device_class: enum     （只有「到站状态」匹配）
+#   data_sync                          → device_class: timestamp      （只有「数据同步」匹配）
+#   remaining_stops                    → device_class: stop_count     （只有「剩余站数」匹配）
+#   remaining_km                       → device_class: remaining_distance（只有「剩余公里数」匹配）
+#   eta                                → device_class: eta            （只有「预计到达」匹配）
+# 三个数值传感器在 sensor.py 里声明同名自定义 device_class（HA 支持：
+# 校验时按 None 处理，注册表保留原值供触发器匹配），
+# 因此每个实体页只显示自己的触发器，不再重复。
+# threshold 用核心 numeric_threshold 选择器（changed 模式：任意变化或高于/低于/区间）。
+# 小数位数由 number.step 控制（核心默认 1 ⇒ 只能填整数）：
+#   remaining_km 写 step: 0.1（传感器 distance_km 保留 1 位小数）；
+#   站 / 分钟是整数口径，不写 step；小时用 step: any。
+
+arrival_arrived:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+
+arrival_arriving:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+
+arrival_not_arriving:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+
+arrival_no_bus:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: enum
+
+remaining_stops:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: stop_count
+  fields:
+    threshold:
+      required: true
+      selector:
+        numeric_threshold:
+          mode: changed
+          number:
+            min: 0
+            mode: box
+            unit_of_measurement: 站
+
+remaining_km:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: remaining_distance
+  fields:
+    threshold:
+      required: true
+      selector:
+        numeric_threshold:
+          mode: changed
+          number:
+            min: 0
+            step: 0.1          # 与传感器口径一致（distance_km 保留 1 位小数）
+            mode: box
+            unit_of_measurement: 公里
+
+eta:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: eta
+  fields:
+    threshold:
+      required: true
+      selector:
+        numeric_threshold:
+          mode: changed
+          number:
+            min: 0
+            mode: box
+            unit_of_measurement: 分钟
+
+data_sync:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: timestamp
+
+# v0.9.29：车牌变为（在车牌实体上，像条件那样手填车牌号）。
+# 用户在文本框里填目标车牌：车牌变成这个号码时触发（首班车恰好是它也算）。
+# v0.9.30 起支持通配符：* 任意多个字、? 一个字；不写通配符就是精确匹配。
+# v0.9.31 删除了 v0.9.28 的 plate_changed（车牌变化）与 plate_replaced（换车）
+# ——「车牌变为」配通配符已覆盖主流玩法（* = 有车出现；闽D06* = 换成 06 开头的车）。
+# fields 只声明 plate；behavior / for 由核心实体触发器 schema 兜底
+# （触发器界面与条件不同，behavior / for 由前端自动处理，不用声明）。
+plate_becomes:
+  target:
+    entity:
+      - integration: my_bus
+        domain: sensor
+        device_class: license_plate
+  fields:
+    plate:
+      required: true
+      selector:
+        text:
